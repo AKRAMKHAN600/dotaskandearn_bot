@@ -105,14 +105,11 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await query.edit_message_text(f"💰 Your current balance is: ₹{bal}")
 
     elif data == "refer":
-        ref_link = get_ref_link(user_id)
-        refs = len(users[user_id]["referrals"])
-        await query.edit_message_text(
-            f"👥 You referred *{refs}* people.\n\n"
-            f"🔗 Your referral link:\n{ref_link}\n\n"
-            f"Earn ₹{REF_BONUS} per referral!",
-            parse_mode=ParseMode.MARKDOWN
-        )
+    user_id = update.effective_user.id
+    ref_link = f"https://t.me/dotaskandearn_bot?start={user_id}"
+    await query.edit_message_text(
+        text=f"🔗 Your referral link:\n{ref_link}\n\n👥 Invite friends & earn ₹10 per referral!"
+    )
 
     elif data == "daily_bonus":
         if not users[user_id]["daily_bonus"]:
