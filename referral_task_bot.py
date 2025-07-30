@@ -5,8 +5,12 @@ from telegram.constants import ParseMode
 
 # === Bot Configuration ===
 TOKEN = "8368686437:AAH09Qb-EmM7GuM4mH_qy1x-jm4LtnyjXWk"
-CHANNEL_USERNAME = "@onlineearning2026toinfinite"
-YOUTUBE_URL = "https://youtube.com/@clipstorm2026?si=qMs_5pF4NDR9Rtod"
+BOT_USERNAME = "dotaskandearn_bot"
+MAIN_CHANNEL = "@onlineearning2026toinfinite"
+YOUTUBE_CHANNEL_LINK = "https://youtube.com/@clipstorm2026?si=qMs_5pF4NDR9Rtod"
+BONUS_YT_SHORT_LINK = "https://youtube.com/shorts/aySwZWcM3Mc?si=d7NS2iNLqSALwbGO"
+BONUS_TELEGRAM_CHANNEL = "https://t.me/SHOORVEERALLEPISODE1TOEND"
+
 MIN_WITHDRAW = 100
 DAILY_BONUS = 5
 REF_BONUS = 10
@@ -15,13 +19,11 @@ users = {}
 
 logging.basicConfig(level=logging.INFO)
 
-
-# === Helper Functions ===
 def get_ref_link(user_id):
-    return f"https://t.me/dotaskandearn_bot?start={user_id}"
+    return f"https://t.me/{BOT_USERNAME}?start={user_id}"
 
 
-# === /start Command ===
+# === /start ===
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     user_id = user.id
@@ -34,7 +36,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "verified": False
         }
 
-        # Referral handling
+        # Handle referral
         if context.args:
             ref_id = int(context.args[0])
             if ref_id != user_id and ref_id in users:
@@ -42,14 +44,13 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     users[ref_id]["referrals"].append(user_id)
                     users[ref_id]["balance"] += REF_BONUS
 
-    # Ask to complete tasks first
     keyboard = [
-        [InlineKeyboardButton("📢 Join Telegram Channel", url=f"https://t.me/{CHANNEL_USERNAME[1:]}")],
-        [InlineKeyboardButton("📺 Subscribe YouTube", url=YOUTUBE_URL)],
+        [InlineKeyboardButton("📢 Join Telegram Channel", url=f"https://t.me/{MAIN_CHANNEL[1:]}")],
+        [InlineKeyboardButton("📺 Subscribe YouTube", url=YOUTUBE_CHANNEL_LINK)],
         [InlineKeyboardButton("✅ I’ve Done All Tasks", callback_data="check_join")]
     ]
     await update.message.reply_text(
-        f"👋 Welcome {user.first_name}!\n\n🚨 *Before using the bot*, please complete these 2 steps:\n\n"
+        f"👋 Welcome {user.first_name}!\n\n🚨 *Before using the bot*, complete these 2 steps:\n\n"
         "1️⃣ Join our Telegram channel\n"
         "2️⃣ Subscribe to our YouTube channel\n\n"
         "Then click '✅ I’ve Done All Tasks' to continue.",
@@ -65,11 +66,10 @@ async def check_join_callback(update: Update, context: ContextTypes.DEFAULT_TYPE
     user_id = user.id
 
     await query.answer()
-    member = await context.bot.get_chat_member(chat_id=CHANNEL_USERNAME, user_id=user.id)
+    member = await context.bot.get_chat_member(chat_id=MAIN_CHANNEL, user_id=user.id)
 
     if member.status in ["member", "administrator", "creator"]:
         users[user_id]["verified"] = True
-
         keyboard = [
             [InlineKeyboardButton("💸 Balance", callback_data="balance"),
              InlineKeyboardButton("🎁 Daily Bonus", callback_data="daily_bonus")],
@@ -77,7 +77,6 @@ async def check_join_callback(update: Update, context: ContextTypes.DEFAULT_TYPE
              InlineKeyboardButton("💰 Withdraw", callback_data="withdraw")],
             [InlineKeyboardButton("📝 Tasks", callback_data="tasks")]
         ]
-
         await query.edit_message_text(
             "✅ *All tasks verified!*\n\nWelcome to the bot 🎉",
             reply_markup=InlineKeyboardMarkup(keyboard),
@@ -85,11 +84,11 @@ async def check_join_callback(update: Update, context: ContextTypes.DEFAULT_TYPE
         )
     else:
         await query.edit_message_text(
-            "❌ You haven’t joined the Telegram channel yet.\n\nPlease join and try again."
+            "❌ You haven’t joined the required Telegram channel.\n\nPlease join and try again."
         )
 
 
-# === Menu Buttons ===
+# === Main Menu Button Actions ===
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     user_id = query.from_user.id
@@ -134,15 +133,16 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif data == "tasks":
         await query.edit_message_text(
             "📝 *Available Tasks:*\n\n"
-            "1️⃣ Join @ExampleChannel → ₹2\n"
-            "2️⃣ Visit https://example.com → ₹3\n"
-            "3️⃣ Watch YouTube video → ₹5\n\n"
-            "👉 *More tasks coming soon!*",
-            parse_mode=ParseMode.MARKDOWN
+            f"1️⃣ Subscribe to our YouTube channel → [ClipStorm2026]({YOUTUBE_CHANNEL_LINK}) → ₹5\n"
+            f"2️⃣ Join Telegram channel → [SHOORVEER Episodes]({BONUS_TELEGRAM_CHANNEL}) → ₹2\n"
+            f"3️⃣ Like & Comment this Short → [Watch Video]({BONUS_YT_SHORT_LINK}) → ₹3\n\n"
+            "👉 *More tasks coming soon...*",
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True
         )
 
 
-# === Main Function ===
+# === Main ===
 def main():
     app = Application.builder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
@@ -150,7 +150,6 @@ def main():
     app.add_handler(CallbackQueryHandler(button_handler))
     print("✅ Bot is running...")
     app.run_polling()
-
 
 if __name__ == "__main__":
     main()
