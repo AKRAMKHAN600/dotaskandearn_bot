@@ -39,7 +39,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else:
         keyboard = [
             [InlineKeyboardButton("🔗 Join Telegram Channel", url="https://t.me/onlineearning2026toinfinite")],
-            [InlineKeyboardButton("▶️ Subscribe YouTube", url=YOUTUBE_LINK)],
+            [InlineKeyboardButton("▶️ Subscribe YouTube", url="https://youtube.com/@clipstorm2026?si=BEJRFSxR8rkAZvLK")],
             [InlineKeyboardButton("✅ I Have Done", callback_data="check_joined")]
         ]
         await update.message.reply_text(
@@ -68,8 +68,8 @@ async def earn_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         ),
         reply_markup=InlineKeyboardMarkup([
             [InlineKeyboardButton("📲 Join Bonus Channel", https://t.me/SHOORVEERALLEPISODE1TOEND=)],
-            [InlineKeyboardButton("▶️ Subscribe YouTube", url=https://youtube.com/@clipstorm2026?si=BEJRFSxR8rkAZvLK)],
-        ]),
+            [InlineKeyboardButton("▶️ Subscribe YouTube", url="https://youtube.com/@clipstorm2026?si=BEJRFSxR8rkAZvLK")], 
+            
         parse_mode="Markdown"
     )
 
