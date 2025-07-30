@@ -106,7 +106,7 @@ async def withdraw_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # --- Add Cash ---
 async def add_cash_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.callback_query.message.reply_photo(
-        photo=https://tg-cloud-file-small-file.ajz.workers.dev/photos/file_371048.jpg?file_name=aqad0ccxg6dxufr9.jpg&expire=1753903047&signature=fZvBby1ZF782y0LHSef9Iv0dSiHMkF42QaoQiNDyCAc%3D,
+        photo="https://tg-cloud-file-small-file.ajz.workers.dev/photos/file_371048.jpg?file_name=aqad0ccxg6dxufr9.jpg&expire=1753903047&signature=fZvBby1ZF782y0LHSef9Iv0dSiHMkF42QaoQiNDyCAc%3D"
         caption=(
             "💸 *Add Cash Instructions:*\n\n"
             "1️⃣ Scan above QR (J&K Bank)\n"
