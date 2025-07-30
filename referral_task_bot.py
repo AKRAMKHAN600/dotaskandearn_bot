@@ -5,8 +5,8 @@ TOKEN = "8368686437:AAH09Qb-EmM7GuM4mH_qy1x-jm4LtnyjXWk"
 BOT_USERNAME = "dotaskandearn_bot"
 FORCE_JOIN_CHANNEL = "@onlineearning2026toinfinite"
 YOUTUBE_LINK = "https://youtube.com/@clipstorm2026?si=7VLhiEbtKrix6g16"
-BONUS_CHANNEL = "https://t.me/SHOORVEERALLEPISODE1TOEND"
-QR_IMAGE_URL = "https://i.imgur.com/GnNd0KD.jpg"  # Upload your QR to imgur and paste link here
+BONUS_CHANNEL = "https://t.me/onlineearning2026toinfinite"
+QR_IMAGE_URL = "https://tg-cloud-file-small-file.ajz.workers.dev/photos/file_371048.jpg?file_name=aqad0ccxg6dxufr9.jpg&expire=1753903047&signature=fZvBby1ZF782y0LHSef9Iv0dSiHMkF42QaoQiNDyCAc%3D"
 
 # --- In-Memory Storage ---
 users = {}
@@ -67,7 +67,7 @@ async def earn_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "📢 _More tasks coming soon..._"
         ),
         reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton("📲 Join Bonus Channel", https://t.me/SHOORVEERALLEPISODE1TOEND=)],
+            [InlineKeyboardButton("📲 Join Bonus Channel", url="https://t.me/SHOORVEERALLEPISODE1TOEND")],
             [InlineKeyboardButton("▶️ Subscribe YouTube", url="https://youtube.com/@clipstorm2026?si=BEJRFSxR8rkAZvLK")], 
             
         parse_mode="Markdown"
