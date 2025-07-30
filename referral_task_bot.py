@@ -1,11 +1,11 @@
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, MessageHandler, ContextTypes, filters
 
 TOKEN = "8368686437:AAH09Qb-EmM7GuM4mH_qy1x-jm4LtnyjXWk"
 BOT_USERNAME = "dotaskandearn_bot"
 FORCE_JOIN_CHANNEL = "@onlineearning2026toinfinite"
 YOUTUBE_LINK = "https://youtube.com/@clipstorm2026?si=7VLhiEbtKrix6g16"
-BONUS_CHANNEL = "https://t.me/onlineearning2026toinfinite"
+BONUS_CHANNEL = "https://t.me/SHOORVEERALLEPISODE1TOEND"
 QR_IMAGE_URL = "https://tg-cloud-file-small-file.ajz.workers.dev/photos/file_371048.jpg?file_name=aqad0ccxg6dxufr9.jpg&expire=1753903047&signature=fZvBby1ZF782y0LHSef9Iv0dSiHMkF42QaoQiNDyCAc%3D"
 
 # --- In-Memory Storage ---
@@ -39,7 +39,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else:
         keyboard = [
             [InlineKeyboardButton("🔗 Join Telegram Channel", url="https://t.me/onlineearning2026toinfinite")],
-            [InlineKeyboardButton("▶️ Subscribe YouTube", url="https://youtube.com/@clipstorm2026?si=BEJRFSxR8rkAZvLK")],
+            [InlineKeyboardButton("▶️ Subscribe YouTube", url=YOUTUBE_LINK)],
             [InlineKeyboardButton("✅ I Have Done", callback_data="check_joined")]
         ]
         await update.message.reply_text(
@@ -67,16 +67,16 @@ async def earn_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "📢 _More tasks coming soon..._"
         ),
         reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton("📲 Join Bonus Channel", url="https://t.me/SHOORVEERALLEPISODE1TOEND")],
-            [InlineKeyboardButton("▶️ Subscribe YouTube", url="https://youtube.com/@clipstorm2026?si=BEJRFSxR8rkAZvLK")], 
-            
+            [InlineKeyboardButton("📲 Join Bonus Channel", url=BONUS_CHANNEL)],
+            [InlineKeyboardButton("▶️ Subscribe YouTube", url=YOUTUBE_LINK)]
+        ]),
         parse_mode="Markdown"
     )
 
 # --- Referral ---
 async def refer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.callback_query.from_user
-    ref_link = f"https://t.me/{dotaskandearn_bot}?start={user.id}"
+    ref_link = f"https://t.me/{BOT_USERNAME}?start={user.id}"
     await update.callback_query.edit_message_text(
         f"🔗 Your referral link:\n{ref_link}\n\n👥 Earn ₹10 per referral!"
     )
@@ -106,7 +106,7 @@ async def withdraw_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # --- Add Cash ---
 async def add_cash_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.callback_query.message.reply_photo(
-        photo="https://tg-cloud-file-small-file.ajz.workers.dev/photos/file_371048.jpg?file_name=aqad0ccxg6dxufr9.jpg&expire=1753903047&signature=fZvBby1ZF782y0LHSef9Iv0dSiHMkF42QaoQiNDyCAc%3D"
+        photo=QR_IMAGE_URL,
         caption=(
             "💸 *Add Cash Instructions:*\n\n"
             "1️⃣ Scan above QR (J&K Bank)\n"
@@ -116,7 +116,6 @@ async def add_cash_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         ),
         parse_mode="Markdown"
     )
-    return
 
 # --- UPI REF NO. Handler ---
 async def handle_upi_reference(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -124,7 +123,7 @@ async def handle_upi_reference(update: Update, context: ContextTypes.DEFAULT_TYP
     text = update.message.text.strip()
 
     if text.isdigit() and len(text) >= 10:
-        users[user_id]["balance"] += 50  # Manual default top-up
+        users[user_id]["balance"] += 50  # Default top-up
         await update.message.reply_text("✅ ₹50 has been added to your account after UPI verification.")
     else:
         await update.message.reply_text("❌ Invalid UPI REF number. Please try again.")
